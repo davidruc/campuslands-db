@@ -19,10 +19,15 @@ trait getInstance{
 }
 
 function autoload($class){
-    $directories = [
-        dirname(__DIR__).'/scripts/areas/',
-        dirname(__DIR__).'/scripts/db/',
-    ];
+    $directories = array();     
+    $directorio = dirname(__DIR__) . '/scripts';     
+    $elementos = scandir($directorio);     
+    foreach ($elementos as $elemento) {         
+        $rutaElemento = $directorio . '/' . $elemento . '/';         
+        if (is_dir($rutaElemento) && $elemento !== '.' && $elemento !== '..') {             
+            $directories[] = $rutaElemento;         
+        }     
+    }
     $classFile = str_replace("\\","/", $class). ".php";
 
     foreach($directories as $directory){
@@ -36,5 +41,5 @@ function autoload($class){
 
 spl_autoload_register("autoload");
 
-areas::getInstance(json_decode(file_get_contents("php://input"), true))->deleteArea();
+areas::getInstance(json_decode(file_get_contents("php://input"), true))->getAllAreas();
 ?>

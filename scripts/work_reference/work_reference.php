@@ -3,7 +3,7 @@
 class work_reference extends connect{ 
     private $queryPost = 'INSERT INTO work_reference(id, full_name, cel_number, position, company) VALUES (:id, :complete_name, :phone, :possition, :workPlace)';
     private $queryGetAll = 'SELECT id AS "id", full_name AS "complete_name", cel_number AS "phone", position AS "possition" ,company AS "workPlace" FROM work_reference';
-    private $queryUpdate = 'UPDATE work_reference SET id = :id, full_name = :complete_name, cel_number= :phone, position = :possition, company = :workPlace WHERE id = :id';
+    private $queryUpdate = 'UPDATE work_reference SET full_name = :complete_name, cel_number= :phone, position = :possition, company = :workPlace WHERE id = :id';
     private $queryDelete = 'DELETE FROM work_reference WHERE id = :id';
     private $message;
     use getInstance; 
@@ -15,7 +15,7 @@ class work_reference extends connect{
     public function postWorkReference(){ 
         try{
             $res = $this->conexion->prepare($this->queryPost);
-            $res->bindValue("id", $this->value);
+            $res->bindValue("id", $this->id);
             $res->bindValue("complete_name", $this->full_name);
             $res->bindValue("phone", $this->cel_number);
             $res->bindValue("possition", $this->position);
@@ -44,7 +44,7 @@ class work_reference extends connect{
     public function updateWorkReference (){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
-            $res->bindValue("id", $this->value);
+            $res->bindValue("id", $this->id);
             $res->bindValue("complete_name", $this->full_name);
             $res->bindValue("phone", $this->cel_number);
             $res->bindValue("possition", $this->position);
@@ -66,7 +66,7 @@ class work_reference extends connect{
     public function deleteWorkReference (){ 
         try{
             $res = $this->conexion->prepare($this->queryDelete);
-            $res->bindValue("id", $this->value); 
+            $res->bindValue("id", $this->id); 
             $res-> execute();
             $this->message = ["Code" => 200, "Message" => "Data delete"];
         } catch (\PDOException $e){

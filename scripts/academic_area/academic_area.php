@@ -8,7 +8,7 @@ class academic_area extends connect{
     private $message;
     use getInstance;
 
-    function __construct(){//faltan los parámetros del constructor
+    function __construct(private $id=1, private $id_area=1, private $id_staff=1, private $id_position=1, private $id_journeys=1){
         parent::__construct();
     }
 

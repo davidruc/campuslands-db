@@ -41,5 +41,5 @@ function autoload($class){
 
 spl_autoload_register("autoload");
 
-work_reference::getInstance(json_decode(file_get_contents("php://input"), true))->updateWorkReference();
+personal_ref::getInstance(json_decode(file_get_contents("php://input"), true))->getAllPersonalRef();
 ?>

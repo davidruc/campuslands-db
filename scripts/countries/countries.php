@@ -1,7 +1,7 @@
 <?php
 
 class countries extends connect{ 
-    private $queryPost = 'INSERT INTO countries(id, name_country) VALUES (:id, country)';
+    private $queryPost = 'INSERT INTO countries(id, name_country) VALUES (:id, :country)';
     private $queryGetAll = 'SELECT id AS "id", name_country AS "country" FROM countries';
     private $queryUpdate = 'UPDATE countries SET name_country= :country WHERE id=:id';
     private $queryDelete = 'DELETE FROM countries WHERE id= :id';

@@ -1,21 +1,25 @@
 <?php
 
-class admin_area extends connect{ //cambiar nombre de la clase
-    private $queryPost = '';
-    private $queryGetAll = '';
-    private $queryUpdate = '';
-    private $queryDelete = '';
+class admin_area extends connect{
+    private $queryPost = 'INSERT INTO admin_area(id, id_area, id_staff, id_position, id_journeys) VALUES (:identificador, :fk_area, :fk_staff, :fk_posicion, :fk_journeys)';
+    private $queryGetAll = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journeys AS "fk_journeys" FROM admin_area';
+    private $queryUpdate = 'UPDATE admin_area SET id_area = :fk_area, id_staff = :fk_staff, id_position = :fk_posicion, id_journeys = :fk_journeys WHERE id = :identificador';
+    private $queryDelete = 'DELETE FROM admin_area WHERE id = :identificador';
     private $message;
     use getInstance;
 
-    function __construct(){//faltan los parámetros del constructor
+    function __construct(private $id=1, private $id_area=1, private $id_staff=1, private $id_position=1, private $id_journeys=1 ){
         parent::__construct();
     }
 
-    public function post (){ //completar nombres
+    public function postAdminArea(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
-            //res-> faltantes
+            $res->bindValue("identificador", $this->id);
+            $res->bindValue("fk_area", $this->id_area);
+            $res->bindValue("fk_staff", $this->id_staff);
+            $res->bindValue("fk_posicion", $this->id_position);
+            $res->bindValue("fk_journeys", $this->id_journeys);
             $res->execute();
             $this->message = ["Code" => 200 + $res->rowCount(), "Message"=>"inserted Data"];
         } catch (\PDOException $e){
@@ -25,7 +29,7 @@ class admin_area extends connect{ //cambiar nombre de la clase
         }
      
     }
-    public function getAll (){ //completar nombres
+    public function getAllAdminArea(){
         try{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
@@ -36,10 +40,14 @@ class admin_area extends connect{ //cambiar nombre de la clase
             print_r($this->message);
         }
     }
-    public function update (){//cambiar el nombre
+    public function updateAdminArea(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
-            //res-> faltantes
+            $res->bindValue("identificador", $this->id);
+            $res->bindValue("fk_area", $this->id_area);
+            $res->bindValue("fk_staff", $this->id_staff);
+            $res->bindValue("fk_posicion", $this->id_position);
+            $res->bindValue("fk_journeys", $this->id_journeys);
             $res->execute();
  
             if ($res->rowCount() > 0){
@@ -50,12 +58,11 @@ class admin_area extends connect{ //cambiar nombre de la clase
         } finally {
             print_r($this->message);
         }
-
     }
-    public function delete (){ //nombre
+    public function deleteAdminArea(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
-            //res 
+            $res->bindValue("identificador", $this->id);
             $res-> execute();
             $this->message = ["Code" => 200, "Message" => "Data delete"];
         } catch (\PDOException $e){
@@ -64,8 +71,6 @@ class admin_area extends connect{ //cambiar nombre de la clase
             print_r($this->message);
         }
     }
-
-
 }
 
 

@@ -1,21 +1,27 @@
 <?php
 
-class staff extends connect{ 
-    private $queryPost = '';
-    private $queryGetAll = '';
-    private $queryUpdate = '';
-    private $queryDelete = '';
+class emergency_contact extends connect{ 
+    private $queryPost = 'INSERT INTO emergency_contact(id, cel_number, relationship,full_name, email, id_staff) VALUES  (:id, :phone, :relation, :complete_name, :email,:fk_staff)';
+    private $queryGetAll = 'SELECT id AS "id", cel_number AS "phone", relationship AS "relation", full_name AS "complete_name", email AS "email", id_staff AS "fk_staff" FROM emergency_contact';
+    private $queryUpdate = 'UPDATE emergency_contact SET cel_number=:phone, relationship=:relation, full_name=:complete_name, email=:email, id_staff=:fk_staff WHERE id=:id';
+    private $queryDelete = 'DELETE FROM emergency_contact WHERE id=:id ';
     private $message;
     use getInstance;
 
-    function __construct(){//faltan los parámetros del constructor
+    function __construct(private $id=1, private $cel_number=0, public $relationship=0, public $full_name=1, public $email=1,private $id_staff=1){
         parent::__construct();
     }
 
-    public function postStaff (){
+    public function postEmergencyContanct(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
-            //res-> faltantes
+            $res->bindValue("id", $this->id);
+            $res->bindValue("phone", $this->cel_number);
+            $res->bindValue("relation", $this->relationship);
+            $res->bindValue("complete_name", $this->full_name);
+            $res->bindValue("email", $this->email);
+            $res->bindValue("fk_staff", $this->id_staff);
+            
             $res->execute();
             $this->message = ["Code" => 200 + $res->rowCount(), "Message"=>"inserted Data"];
         } catch (\PDOException $e){
@@ -25,7 +31,7 @@ class staff extends connect{
         }
      
     }
-    public function getAllStaff (){
+    public function getAllEmergencyContanct(){
         try{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
@@ -36,10 +42,16 @@ class staff extends connect{
             print_r($this->message);
         }
     }
-    public function updateStaff (){
+    public function updateEmergencyContanct(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
-            //res-> faltantes
+            $res->bindValue("id", $this->id);
+            $res->bindValue("phone", $this->cel_number);
+            $res->bindValue("relation", $this->relationship);
+            $res->bindValue("complete_name", $this->full_name);
+            $res->bindValue("email", $this->email);
+            $res->bindValue("fk_staff", $this->id_staff);
+            
             $res->execute();
  
             if ($res->rowCount() > 0){
@@ -54,10 +66,10 @@ class staff extends connect{
         }
 
     }
-    public function deleteStaff (){
+    public function deleteEmergencyContanct(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
-            //res 
+            $res->bindValue("id", $this->id);
             $res-> execute();
             $this->message = ["Code" => 200, "Message" => "Data delete"];
         } catch (\PDOException $e){

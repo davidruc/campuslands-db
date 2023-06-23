@@ -1,21 +1,28 @@
 <?php
 
-class staff extends connect{ 
-    private $queryPost = '';
-    private $queryGetAll = '';
-    private $queryUpdate = '';
-    private $queryDelete = '';
+class working_info extends connect{ 
+    private $queryPost = 'INSERT INTO working_info(id, id_staff, years_exp,months_exp,id_work_reference,id_personal_ref,start_contract,end_contract) VALUES (:id, :fk_staff, :experience_Y, :experience_M, :fk_work_reference, :fk_personal_ref, :start_contract, :end_contract)';
+    private $queryGetAll = 'SELECT id AS "id", id_staff AS "fk_staff", years_exp AS "experience_Y", months_exp AS "experience_M" , id_work_reference AS "fk_work_reference" , id_personal_ref AS "fk_personal_ref", start_contract AS "start_contract", end_contract AS "end_contract" FROM working_info';
+    private $queryUpdate = 'UPDATE working_info SET id_staff=:fk_staff, years_exp =:experience_Y, months_exp=:experience_M, id_work_reference=:fk_work_reference,id_personal_ref=:fk_personal_ref, start_contract=:start_contract, end_contract=:end_contract WHERE id=":id"';
+    private $queryDelete = 'DELETE FROM working_info WHERE id= :id';
     private $message;
     use getInstance;
 
-    function __construct(){//faltan los parámetros del constructor
+    function __construct(private $id =1, private $id_staff=1, public $years_exp=0, public $months_exp=0, private $id_work_reference=1,private $id_personal_ref=1, public $start_contract=1, public $end_contract=1){
         parent::__construct();
     }
 
-    public function postStaff (){
+    public function postWorkingInfo(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
-            //res-> faltantes
+            $res->bindValue("id", $this->id);
+            $res->bindValue("fk_staff", $this->id_staff);
+            $res->bindValue("experience_Y", $this->years_exp);
+            $res->bindValue("experience_M", $this->months_exp);
+            $res->bindValue("fk_work_reference", $this->id_work_reference);
+            $res->bindValue("fk_personal_ref", $this->id_personal_ref);
+            $res->bindValue("start_contract", $this->start_contract);
+            $res->bindValue("end_contract", $this->end_contract);
             $res->execute();
             $this->message = ["Code" => 200 + $res->rowCount(), "Message"=>"inserted Data"];
         } catch (\PDOException $e){
@@ -25,7 +32,7 @@ class staff extends connect{
         }
      
     }
-    public function getAllStaff (){
+    public function getAllWorkingInfo(){
         try{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
@@ -36,10 +43,17 @@ class staff extends connect{
             print_r($this->message);
         }
     }
-    public function updateStaff (){
+    public function updateWorkingInfo(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
-            //res-> faltantes
+            $res->bindValue("id", $this->id);
+            $res->bindValue("fk_staff", $this->id_staff);
+            $res->bindValue("experience_Y", $this->years_exp);
+            $res->bindValue("experience_M", $this->months_exp);
+            $res->bindValue("fk_work_reference", $this->id_work_reference);
+            $res->bindValue("fk_personal_ref", $this->id_personal_ref);
+            $res->bindValue("start_contract", $this->start_contract);
+            $res->bindValue("end_contract", $this->end_contract);
             $res->execute();
  
             if ($res->rowCount() > 0){
@@ -54,10 +68,10 @@ class staff extends connect{
         }
 
     }
-    public function deleteStaff (){
+    public function deleteWorkingInfo(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
-            //res 
+            $res->bindValue("id", $this->id);
             $res-> execute();
             $this->message = ["Code" => 200, "Message" => "Data delete"];
         } catch (\PDOException $e){

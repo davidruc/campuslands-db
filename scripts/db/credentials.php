@@ -1,4 +1,5 @@
 <?php 
+    namespace App;
     abstract class credentials{   
         protected $host = '172.16.49.20';
         private $user = 'sputnik';

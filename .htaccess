@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-1
+    RewriteRule ^(.*)$ uploads/app.php?ruta=$1 [L,QSA]
+
+</IfModule>

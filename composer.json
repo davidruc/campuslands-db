@@ -1,0 +1,23 @@
+{
+    "name": "david/campuslands-db",
+    "description": "...",
+    "license": "LTS",
+    "autoload": {
+        "psr-4": {
+            "App\\": [
+                "./scripts/areas",
+                "./scripts/db",
+                "./scripts/system"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "davidruc",
+            "email": "davidarueda18@gmail.com"
+        }
+    ],
+    "require": {
+        "bramus/router": "~1.6"
+    }
+}

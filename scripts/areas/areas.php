@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class areas extends connect{
     private $queryPost = 'INSERT INTO areas(id, name_area) VALUES (:identificador, :nombre_area)';
     private $queryGetAll = 'SELECT id AS "identificador", name_area AS "nombre_area" FROM areas';
@@ -26,7 +26,7 @@ class areas extends connect{
         try{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
-            $this->message = ["Code" => 200, "Message" => $res->fetchAll(PDO::FETCH_ASSOC)];
+            $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

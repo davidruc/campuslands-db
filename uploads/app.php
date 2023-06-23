@@ -41,5 +41,6 @@ function autoload($class){
 
 spl_autoload_register("autoload");
 
+
 cities::getInstance(json_decode(file_get_contents("php://input"), true))->postCountries();
 ?>

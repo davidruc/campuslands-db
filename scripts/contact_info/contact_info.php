@@ -1,21 +1,28 @@
 <?php
 
-class staff extends connect{ 
-    private $queryPost = '';
-    private $queryGetAll = '';
-    private $queryUpdate = '';
-    private $queryDelete = '';
+class contact_info extends connect{ 
+    private $queryPost = 'INSERT INTO contact_info(id, whatsapp, instagram, linkedin, email, address, cel_number, id_staff) VALUES (:id, :contact, :ig, :li, :email, :direction, :phone, fk_staff)';
+    private $queryGetAll = 'SELECT id AS "id", whatsapp AS "contact", instagram AS "ig", linkedin AS "li", email AS "email",  address AS "direction", cel_number AS "phone", id_staff AS "fk_staff" FROM contact_info';
+    private $queryUpdate = 'UPDATE contact_info SET  whatsapp =: contact, instagram =: ig, linkedin =: li, email =: email,  address =: direction, cel_number =: phone, id_staff =: fk_staff WHERE id=:id';
+    private $queryDelete = 'DELETE FROM contact_info WHERE id=:id';
     private $message;
     use getInstance;
 
-    function __construct(){//faltan los parámetros del constructor
+    function __construct(private $id=1, private $whatsapp=1, private $instagram=1, public $linkedin=1, public $email=1, private $address=1,private $cel_number=1, private $id_staff){
         parent::__construct();
     }
 
-    public function postStaff (){
+    public function postContactInfo(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
-            //res-> faltantes
+            $res->bindValue("id", $this->id);
+            $res->bindValue("contact", $this->whatsapp);
+            $res->bindValue("ig", $this->instagram);
+            $res->bindValue("li", $this->linkedin);
+            $res->bindValue("email", $this->email);
+            $res->bindValue("direction", $this->address);
+            $res->bindValue("phone", $this->cel_number);
+            $res->bindValue("fk_staff", $this->id_staff);
             $res->execute();
             $this->message = ["Code" => 200 + $res->rowCount(), "Message"=>"inserted Data"];
         } catch (\PDOException $e){
@@ -25,7 +32,7 @@ class staff extends connect{
         }
      
     }
-    public function getAllStaff (){
+    public function getAllContactInfo(){
         try{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
@@ -36,10 +43,17 @@ class staff extends connect{
             print_r($this->message);
         }
     }
-    public function updateStaff (){
+    public function updateContactInfo(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
-            //res-> faltantes
+            $res->bindValue("id", $this->id);
+            $res->bindValue("contact", $this->whatsapp);
+            $res->bindValue("ig", $this->instagram);
+            $res->bindValue("li", $this->linkedin);
+            $res->bindValue("email", $this->email);
+            $res->bindValue("direction", $this->address);
+            $res->bindValue("phone", $this->cel_number);
+            $res->bindValue("fk_staff", $this->id_staff);
             $res->execute();
  
             if ($res->rowCount() > 0){
@@ -54,10 +68,10 @@ class staff extends connect{
         }
 
     }
-    public function deleteStaff (){
+    public function deleteContactInfo(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
-            //res 
+            $res->bindValue("id", $this->id);
             $res-> execute();
             $this->message = ["Code" => 200, "Message" => "Data delete"];
         } catch (\PDOException $e){
@@ -66,8 +80,6 @@ class staff extends connect{
             print_r($this->message);
         }
     }
-
-
 }
 
 

@@ -5,8 +5,8 @@ class modules extends connect{
     private $queryGetAll = 'SELECT id AS "identificador", name_module AS "module_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_theme AS "fk_theme" FROM modules';
     private $queryUpdate = 'UPDATE modules SET name_module = :module_name, start_date = :date_start, end_date = :date_end, description = :details, duration_days=:days_duration, id_theme=:fk_theme WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM modules WHERE id = :identificador';
-    private $message;
     use getInstance;
+    private $message;
 
     function __construct(private $id=1, public $name_module=1, private $start_date=1, private $end_date =1, public $description=1, public $duration_days=1, private $id_theme=1 ){
         parent::__construct();
@@ -31,10 +31,9 @@ class modules extends connect{
         }
      
     }
-    public function getAllModules(){ 
+    public function getAll_modules(){ 
         try{
             $res = $this->conexion->prepare($this->queryGetAll);
-            $res->bindValue("identificador", $this->id);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {

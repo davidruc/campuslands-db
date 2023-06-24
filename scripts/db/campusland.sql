@@ -1344,4 +1344,14 @@ COMMIT;
 USE campusland;
 SELECT * FROM areas;
 
-SELECT id AS "identificador", name_module AS "module_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_theme AS "fk_theme" FROM modules
+SELECT id AS "identificador", name_module AS "module_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_theme AS "fk_theme" FROM modules;
+
+SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM admin_area;
+
+SELECT id AS "id", name_city AS "city", id_region AS "fk_region" FROM cities;
+
+SELECT id AS "id", whatsapp AS "contact", instagram AS "ig", linkedin AS "li", email AS "email",  address AS "direction", cel_number AS "phone", id_staff AS "fk_staff" FROM contact_info;
+
+SELECT id AS "id", name_country AS "country" FROM countries;
+
+SELECT id AS "id", id_staff AS "fk_staff", years_exp AS "experience_Y", months_exp AS "experience_M" , id_work_reference AS "fk_work_reference" , id_personal_ref AS "fk_personal_ref", start_contract AS "start_contract", end_contract AS "end_contract" FROM working_info

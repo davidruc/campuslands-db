@@ -8,7 +8,7 @@ class contact_info extends connect{
     private $message;
     use getInstance;
 
-    function __construct(private $id=1, private $whatsapp=1, private $instagram=1, public $linkedin=1, public $email=1, private $address=1,private $cel_number=1, private $id_staff){
+    function __construct(private $id=1, private $whatsapp=1, private $instagram=1, public $linkedin=1, public $email=1, private $address=1,private $cel_number=1, private $id_staff=1){
         parent::__construct();
     }
 
@@ -32,11 +32,11 @@ class contact_info extends connect{
         }
      
     }
-    public function getAllContactInfo(){
+    public function getAll_contact_info(){
         try{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
-            $this->message = ["Code" => 200, "Message" => $res->fetchAll(PDO::FETCH_ASSOC)];
+            $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

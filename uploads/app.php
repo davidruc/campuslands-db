@@ -8,19 +8,11 @@ require_once "../vendor/autoload.php";
 $router = new \Bramus\Router\Router();
 
 
-$router->get("/admin_areas", function(){
-    App\admin_area::getInstance(json_decode(file_get_contents("php://input"), true))->getAllAdminArea();
-});
 
-$router->get("/areas", function(){
-    App\areas::getInstance(json_decode(file_get_contents("php://input"), true))->getAllAreas();
-});
-
-
-
-$router->get("/modulos", function(){
-    App\modules::getInstance(json_decode(file_get_contents("php://input"), true))->getAllModules();
-
+$router->get("/{tabla}", function($tabla) {
+    $class = "App\\" .$tabla;
+    $method = "getAll_" . $tabla;
+    $instance = $class::getInstance(json_decode(file_get_contents("php://input"), true))->$method();
 });
 
 $router->run();

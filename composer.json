@@ -22,7 +22,9 @@
                 "./scripts/themes",
                 "./scripts/work_reference",
                 "./scripts/working_info",
-                "./scripts/modules"
+                "./scripts/modules",
+                "./scripts/topics",
+                "./scripts/countries"
             ]
         }
     },

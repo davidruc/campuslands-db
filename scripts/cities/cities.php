@@ -4,15 +4,15 @@ class cities extends connect{
     private $queryPost = 'INSERT INTO cities(id, name_city, id_region) VALUES (:id, :city, :fk_region)';
     private $queryGetAll = 'SELECT id AS "id", name_city AS "city", id_region AS "fk_region" FROM cities';
     private $queryUpdate = 'UPDATE cities SET name_city= :city, id_region=:fk_region WHERE id=:id';
-    private $queryDelete = 'DELETE FROM cities WHERE id= :id';
-    private $message;
+    private $queryDelete = 'DELETE FROM cities WHERE id=:id';
     use getInstance;
+    private $message;
 
-    function __construct(private $id, private $id_region=1, public $name_city=1){
+    function __construct(private $id=1, private $id_region=1, public $name_city=1){
         parent::__construct();
     }
 
-    public function postCountries (){
+    public function postCountries(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("id", $this->id);
@@ -27,11 +27,11 @@ class cities extends connect{
         }
      
     }
-    public function getAllCountries (){
+    public function getAll_cities(){
         try{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
-            $this->message = ["Code" => 200, "Message" => $res->fetchAll(PDO::FETCH_ASSOC)];
+            $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

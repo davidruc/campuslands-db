@@ -1,13 +1,16 @@
 <?php
 namespace App;
+
 class areas extends connect{
     private $queryPost = 'INSERT INTO areas(id, name_area) VALUES (:identificador, :nombre_area)';
     private $queryGetAll = 'SELECT id AS "identificador", name_area AS "nombre_area" FROM areas';
     private $queryUpdate = 'UPDATE areas SET name_area = :nombre_area WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM areas WHERE id = :identificador';
-    private $message;
     use getInstance;
-    function __construct(private $id = 1, public $name_area = 1){parent::__construct();}
+    private $message;
+    function __construct(private $id = 1, public $name_area = 1){
+        parent::__construct();
+    }
 
     public function postArea(){
         try{
@@ -22,7 +25,7 @@ class areas extends connect{
             print_r($this->message);
         }
     }
-    public function getAllAreas(){
+    public function getAll_areas(){
         try{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();

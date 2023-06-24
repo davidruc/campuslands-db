@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class emergency_contact extends connect{ 
     private $queryPost = 'INSERT INTO emergency_contact(id, cel_number, relationship,full_name, email, id_staff) VALUES  (:id, :phone, :relation, :complete_name, :email,:fk_staff)';
     private $queryGetAll = 'SELECT id AS "id", cel_number AS "phone", relationship AS "relation", full_name AS "complete_name", email AS "email", id_staff AS "fk_staff" FROM emergency_contact';

@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class cities extends connect{ 
     private $queryPost = 'INSERT INTO cities(id, name_city, id_region) VALUES (:id, :city, :fk_region)';
     private $queryGetAll = 'SELECT id AS "id", name_city AS "city", id_region AS "fk_region" FROM cities';

@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class marketing_area extends connect{
     private $queryPost = 'INSERT INTO marketing_area(id, id_area, id_staff, id_position, id_journeys) VALUES (:identificador, :fk_area, :fk_staff, :fk_posicion, :fk_journeys)';
     private $queryGetAll = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journeys AS "fk_journeys" FROM marketing_area';

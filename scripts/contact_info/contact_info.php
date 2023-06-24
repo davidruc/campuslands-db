@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class contact_info extends connect{ 
     private $queryPost = 'INSERT INTO contact_info(id, whatsapp, instagram, linkedin, email, address, cel_number, id_staff) VALUES (:id, :contact, :ig, :li, :email, :direction, :phone, fk_staff)';
     private $queryGetAll = 'SELECT id AS "id", whatsapp AS "contact", instagram AS "ig", linkedin AS "li", email AS "email",  address AS "direction", cel_number AS "phone", id_staff AS "fk_staff" FROM contact_info';

@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class staff extends connect{ 
     private $queryPost = 'INSERT INTO staff(id, doc, first_name,second_name,first_surname,second_surname,eps,id_area,id_city) VALUES (:id, :documento, :f_name, :s_name, :f_surname, :s_surname, :eps, :fk_area, :fk_city)';
     private $queryGetAll = 'SELECT id AS "id", doc AS "documento", first_name AS "f_name", second_name AS "s_name" , first_surname AS "f_surname" , second_surname AS "s_surname", eps AS "eps", id_area AS "fk_area", id_city AS "fk_city" FROM staff';

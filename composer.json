@@ -7,7 +7,22 @@
             "App\\": [
                 "./scripts/areas",
                 "./scripts/db",
-                "./scripts/system"
+                "./scripts/system",
+                "./scripts/admin_area",
+                "./scripts/academic_area",
+                "./scripts/cities",
+                "./scripts/contact_info",
+                "./scripts/design_area",
+                "./scripts/emergency_contact",
+                "./scripts/maint_area",
+                "./scripts/marketing_area",
+                "./scripts/personal_ref",
+                "./scripts/regions",
+                "./scripts/staff",
+                "./scripts/themes",
+                "./scripts/work_reference",
+                "./scripts/working_info",
+                "./scripts/modules"
             ]
         }
     },

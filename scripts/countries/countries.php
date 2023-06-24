@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class countries extends connect{ 
     private $queryPost = 'INSERT INTO countries(id, name_country) VALUES (:id, :country)';
     private $queryGetAll = 'SELECT id AS "id", name_country AS "country" FROM countries';

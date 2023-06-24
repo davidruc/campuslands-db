@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class themes extends connect{ 
     private $queryPost = 'INSERT INTO themes(id, name_theme, start_date, end_date,description,id_chapter,duration_days) VALUES (:id, :theme_names, :start_D, :end_D, :description, :fk_chapter, :days_duration)';
     private $queryGetAll = 'SELECT id AS "id", name_theme AS "theme_names", start_date AS "start_D", end_date AS "end_D", description AS "description", id_chapter AS "fk_chapter", duration_days AS "days_duration" FROM themes';

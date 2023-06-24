@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class working_info extends connect{ 
     private $queryPost = 'INSERT INTO working_info(id, id_staff, years_exp,months_exp,id_work_reference,id_personal_ref,start_contract,end_contract) VALUES (:id, :fk_staff, :experience_Y, :experience_M, :fk_work_reference, :fk_personal_ref, :start_contract, :end_contract)';
     private $queryGetAll = 'SELECT id AS "id", id_staff AS "fk_staff", years_exp AS "experience_Y", months_exp AS "experience_M" , id_work_reference AS "fk_work_reference" , id_personal_ref AS "fk_personal_ref", start_contract AS "start_contract", end_contract AS "end_contract" FROM working_info';

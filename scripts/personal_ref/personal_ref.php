@@ -1,6 +1,6 @@
 <?php
-
-class personal_ref extends connect{ //cambiar nombre de la clase
+namespace App;
+class personal_ref extends connect{ 
     private $queryPost = 'INSERT INTO personal_ref(id, full_name, cel_number, relationship, occupation) VALUES (:identificador, :complete_name, :phone, :civil_state, :ocupation)';
     private $queryGetAll = 'SELECT id AS "identificador", full_name AS "complete_name", cel_number AS "phone",  relationship AS "civil_state",  occupation AS "ocupation" FROM personal_ref';
     private $queryUpdate = 'UPDATE personal_ref SET full_name = :complete_name, cel_number = :phone, relationship = :civil_state, occupation = :ocupation WHERE id = :identificador';

@@ -1,8 +1,8 @@
 <?php
-
+namespace App;
 class admin_area extends connect{
     private $queryPost = 'INSERT INTO admin_area(id, id_area, id_staff, id_position, id_journeys) VALUES (:identificador, :fk_area, :fk_staff, :fk_posicion, :fk_journeys)';
-    private $queryGetAll = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journeys AS "fk_journeys" FROM admin_area';
+    private $queryGetAll = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journeys AS "fk_journeys" FROM admin_area, INNER JOIN areas ON admin_area.id_area = areas.id INNER JOIN staff ON admin_area.id_staff = staff.id INNER JOIN position ON admin_area.id_position = position.id INNER JOIN journey ON admin_area.id_journeys = journey.id  WHERE admin_area.id=:identificador';
     private $queryUpdate = 'UPDATE admin_area SET id_area = :fk_area, id_staff = :fk_staff, id_position = :fk_posicion, id_journeys = :fk_journeys WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM admin_area WHERE id = :identificador';
     private $message;

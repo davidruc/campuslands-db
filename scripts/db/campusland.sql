@@ -1343,3 +1343,5 @@ COMMIT;
 
 USE campusland;
 SELECT * FROM areas;
+
+SELECT id AS "identificador", name_module AS "module_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_theme AS "fk_theme" FROM modules

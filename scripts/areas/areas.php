@@ -8,11 +8,11 @@ class areas extends connect{
     private $queryDelete = 'DELETE FROM areas WHERE id = :identificador';
     use getInstance;
     private $message;
-    function __construct(private $id = 1, public $name_area = 1){
+    function __construct(private $id =1, public $name_area = 1){
         parent::__construct();
     }
 
-    public function postArea(){
+    public function post_areas(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("identificador", $this->id);
@@ -36,13 +36,13 @@ class areas extends connect{
             print_r($this->message);
         }
     }
-    public function updateArea(){
+    public function update_areas(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("identificador", $this->id);
             $res->bindValue("nombre_area", $this->name_area);
             $res->execute();
-            //! Hace falta revisar la validación
+            
             if ($res->rowCount() > 0){
                 $this->message = ["Code" => 200, "Message" => "Data updated"];
             }
@@ -52,7 +52,7 @@ class areas extends connect{
             print_r($this->message);
         }
     }
-    public function deleteArea(){
+    public function delete_areas(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("identificador", $this->id);

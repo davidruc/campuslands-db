@@ -31,7 +31,8 @@
                 "./scripts/team_educators",
                 "./scripts/levels",
                 "./scripts/locations",
-                "./scripts/subjects"
+                "./scripts/subjects",
+                "./scripts/journey"
             ]
         }
     },

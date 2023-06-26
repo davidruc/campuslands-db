@@ -1,5 +1,4 @@
 <?php
-//! DAVID DEL FUTURO: ESTABAS HACIENDO ESTA TABLA -> NO LA HAZ EDITADO NADA DE NADA!! después sigue la tabla subjects y luego journey, después position. La idea es no irnos a dormir hasta tener todas las tablas. Mañana miramos los innerjoins y el consumo de los endpoints en el front
 namespace App;
 
 class subjects extends connect{

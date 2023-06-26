@@ -11,7 +11,7 @@ class admin_area extends connect{
         parent::__construct();
     }
 
-    public function postAdminArea(){
+    public function post_admin_area(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("identificador", $this->id);
@@ -39,7 +39,7 @@ class admin_area extends connect{
             print_r($this->message);
         }
     }
-    public function updateAdminArea(){
+    public function update_admin_area(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("identificador", $this->id);
@@ -58,7 +58,7 @@ class admin_area extends connect{
             print_r($this->message);
         }
     }
-    public function deleteAdminArea(){
+    public function delete_admin_area(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("identificador", $this->id);

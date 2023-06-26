@@ -12,7 +12,7 @@ class design_area extends connect{
         parent::__construct();
     }
 
-    public function postDesingArea(){
+    public function post_design_area(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("identificador", $this->id);
@@ -40,7 +40,7 @@ class design_area extends connect{
             print_r($this->message);
         }
     }
-    public function updateDesingArea(){
+    public function update_design_area(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("identificador", $this->id);
@@ -59,7 +59,7 @@ class design_area extends connect{
             print_r($this->message);
         }
     }
-    public function deleteDesingArea(){
+    public function delete_design_area(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("identificador", $this->id);

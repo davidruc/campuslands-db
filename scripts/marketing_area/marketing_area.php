@@ -12,7 +12,7 @@ class marketing_area extends connect{
         parent::__construct();
     }
 
-    public function postMarketingArea(){
+    public function post_marketing_area(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("identificador", $this->id);
@@ -40,7 +40,7 @@ class marketing_area extends connect{
             print_r($this->message);
         }
     }
-    public function updateMarketingArea(){
+    public function update_marketing_area(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("identificador", $this->id);
@@ -59,7 +59,7 @@ class marketing_area extends connect{
             print_r($this->message);
         }
     }
-    public function deleteMarketingArea(){
+    public function delete_marketing_area(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("identificador", $this->id);

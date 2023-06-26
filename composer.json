@@ -33,7 +33,8 @@
                 "./scripts/locations",
                 "./scripts/subjects",
                 "./scripts/journey",
-                "./scripts/position"
+                "./scripts/position",
+                "./scripts/tutors"
             ]
         }
     },

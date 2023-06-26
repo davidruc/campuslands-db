@@ -12,7 +12,7 @@ class maint_area extends connect{
         parent::__construct();
     }
 
-    public function postMaintArea(){
+    public function post_maint_area(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("identificador", $this->id);
@@ -40,7 +40,7 @@ class maint_area extends connect{
             print_r($this->message);
         }
     }
-    public function updateMaintAreax(){
+    public function update_maint_area(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("identificador", $this->id);
@@ -59,7 +59,7 @@ class maint_area extends connect{
             print_r($this->message);
         }
     }
-    public function deleteMaintAreax(){
+    public function delete_maint_area(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("identificador", $this->id);

@@ -32,7 +32,8 @@
                 "./scripts/levels",
                 "./scripts/locations",
                 "./scripts/subjects",
-                "./scripts/journey"
+                "./scripts/journey",
+                "./scripts/position"
             ]
         }
     },

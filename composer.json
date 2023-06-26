@@ -27,7 +27,8 @@
                 "./scripts/countries",
                 "./scripts/routes",
                 "./scripts/thematic_units",
-                "./scripts/chapters"
+                "./scripts/chapters",
+                "./scripts/team_educators"
             ]
         }
     },

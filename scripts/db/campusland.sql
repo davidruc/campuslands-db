@@ -1357,3 +1357,5 @@ SELECT id AS "id", name_country AS "country" FROM countries;
 SELECT id AS "id", id_staff AS "fk_staff", years_exp AS "experience_Y", months_exp AS "experience_M" , id_work_reference AS "fk_work_reference" , id_personal_ref AS "fk_personal_ref", start_contract AS "start_contract", end_contract AS "end_contract" FROM working_info;
 
 SELECT id AS "id", name_route AS "route_name",  start_date AS "Start_date",  end_date AS "End_date",  description AS "details",  duration_month AS "duration"  FROM routes;
+
+INSERT INTO topics(id, name_topic, start_date, end_date, description,duration_days,id_module) VALUES (:identificador, :topic_name, :date_start, :date_end, :details,:days_duration, :fk_module);

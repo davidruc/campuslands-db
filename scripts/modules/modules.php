@@ -1,7 +1,7 @@
 <?php
 namespace App;
 class modules extends connect{ 
-    private $queryPost = 'INSERT INTO modules(id, name_module, start_date, end_date, description,duration_days,id_theme) VALUES (:identificador, :module_name, :date_start, :date_end, :details,:days_duration,:fk_theme)';
+    private $queryPost = 'INSERT INTO modules(id, name_module, start_date, end_date, description,duration_days,id_theme) VALUES (:identificador, :module_name, :date_start, :date_end, :details,:days_duration, :fk_theme)';
     private $queryGetAll = 'SELECT id AS "identificador", name_module AS "module_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_theme AS "fk_theme" FROM modules';
     private $queryUpdate = 'UPDATE modules SET name_module = :module_name, start_date = :date_start, end_date = :date_end, description = :details, duration_days=:days_duration, id_theme=:fk_theme WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM modules WHERE id = :identificador';
@@ -12,7 +12,7 @@ class modules extends connect{
         parent::__construct();
     }
 
-    public function postModules (){
+    public function post_modules(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("identificador", $this->id);
@@ -42,7 +42,7 @@ class modules extends connect{
             print_r($this->message);
         }
     }
-    public function updateModules (){
+    public function update_modules (){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("identificador", $this->id);
@@ -64,7 +64,7 @@ class modules extends connect{
         }
 
     }
-    public function deleteModules (){ 
+    public function delete_modules (){ 
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("identificador", $this->id);

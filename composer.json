@@ -30,7 +30,8 @@
                 "./scripts/chapters",
                 "./scripts/team_educators",
                 "./scripts/levels",
-                "./scripts/locations"
+                "./scripts/locations",
+                "./scripts/subjects"
             ]
         }
     },

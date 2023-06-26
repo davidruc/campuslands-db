@@ -28,7 +28,8 @@
                 "./scripts/routes",
                 "./scripts/thematic_units",
                 "./scripts/chapters",
-                "./scripts/team_educators"
+                "./scripts/team_educators",
+                "./scripts/levels"
             ]
         }
     },

@@ -29,7 +29,8 @@
                 "./scripts/thematic_units",
                 "./scripts/chapters",
                 "./scripts/team_educators",
-                "./scripts/levels"
+                "./scripts/levels",
+                "./scripts/locations"
             ]
         }
     },

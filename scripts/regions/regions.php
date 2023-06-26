@@ -4,7 +4,7 @@ class regions extends connect{
     private $queryPost = 'INSERT INTO regions(id, name_region, id_country) VALUES (:id, :region, :fk_country)';
     private $queryGetAll = 'SELECT id AS "id", name_region AS "region", id_country AS "fk_country" FROM regions';
     private $queryUpdate = 'UPDATE regions SET name_region= :region, id_country=:fk_country WHERE id=:id';
-    private $queryDelete = 'DELETE FROM countries WHERE id= :id';
+    private $queryDelete = 'DELETE FROM regions WHERE id= :id';
     private $message;
     use getInstance;
 
@@ -12,7 +12,7 @@ class regions extends connect{
         parent::__construct();
     }
 
-    public function postRegions (){
+    public function post_regions (){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("id", $this->id);
@@ -38,7 +38,7 @@ class regions extends connect{
             print_r($this->message);
         }
     }
-    public function updateRegions (){
+    public function update_regions (){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("id", $this->id);
@@ -58,7 +58,7 @@ class regions extends connect{
         }
 
     }
-    public function deleteRegions (){
+    public function delete_regions (){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("id", $this->id);

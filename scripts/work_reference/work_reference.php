@@ -12,7 +12,7 @@ class work_reference extends connect{
         parent::__construct();
     }
 
-    public function postWorkReference(){ 
+    public function post_work_reference(){ 
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("id", $this->id);
@@ -41,7 +41,7 @@ class work_reference extends connect{
             print_r($this->message);
         }
     }
-    public function updateWorkReference (){
+    public function update_work_reference (){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("id", $this->id);
@@ -63,7 +63,7 @@ class work_reference extends connect{
         }
 
     }
-    public function deleteWorkReference (){ 
+    public function delete_work_reference (){ 
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("id", $this->id); 

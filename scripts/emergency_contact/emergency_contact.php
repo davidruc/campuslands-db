@@ -12,7 +12,7 @@ class emergency_contact extends connect{
         parent::__construct();
     }
 
-    public function postEmergencyContanct(){
+    public function post_emergency_contact(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("id", $this->id);
@@ -42,7 +42,7 @@ class emergency_contact extends connect{
             print_r($this->message);
         }
     }
-    public function updateEmergencyContanct(){
+    public function update_emergency_contact(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("id", $this->id);
@@ -66,7 +66,7 @@ class emergency_contact extends connect{
         }
 
     }
-    public function deleteEmergencyContanct(){
+    public function delete_emergency_contact(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("id", $this->id);

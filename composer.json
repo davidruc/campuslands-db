@@ -24,7 +24,9 @@
                 "./scripts/working_info",
                 "./scripts/modules",
                 "./scripts/topics",
-                "./scripts/countries"
+                "./scripts/countries",
+                "./scripts/routes",
+                "./scripts/thematic_units"
             ]
         }
     },

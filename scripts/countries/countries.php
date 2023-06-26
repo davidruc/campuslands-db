@@ -12,7 +12,7 @@ class countries extends connect{
         parent::__construct();
     }
 
-    public function postCountries (){
+    public function post_countries (){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("id", $this->id);
@@ -37,7 +37,7 @@ class countries extends connect{
             print_r($this->message);
         }
     }
-    public function updateCountries (){
+    public function update_countries (){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("id", $this->id);
@@ -54,7 +54,7 @@ class countries extends connect{
         }
 
     }
-    public function deleteCountries (){
+    public function delete_countries (){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("id", $this->id);

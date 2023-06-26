@@ -12,7 +12,7 @@ class staff extends connect{
         parent::__construct();
     }
 
-    public function postStaff (){
+    public function post_staff(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("id", $this->id);
@@ -45,7 +45,7 @@ class staff extends connect{
             print_r($this->message);
         }
     }
-    public function updateStaff (){
+    public function update_staff(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("id", $this->id);
@@ -71,7 +71,7 @@ class staff extends connect{
         }
 
     }
-    public function deleteStaff (){
+    public function delete_staff(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("id", $this->id);

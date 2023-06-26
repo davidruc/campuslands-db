@@ -12,7 +12,7 @@ class themes extends connect{
         parent::__construct();
     }
 
-    public function postThemes(){
+    public function post_themes(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("id", $this->id);
@@ -43,7 +43,7 @@ class themes extends connect{
             print_r($this->message);
         }
     }
-    public function updateThemes(){
+    public function update_themes(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("id", $this->id);
@@ -67,7 +67,7 @@ class themes extends connect{
         }
 
     }
-    public function deleteThemes(){
+    public function delete_themes(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("id", $this->id);

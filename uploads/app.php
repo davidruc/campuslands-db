@@ -8,7 +8,6 @@ require_once "../vendor/autoload.php";
 $router = new \Bramus\Router\Router();
 
 
-
 $router->get("/{tabla}", function($tabla) {
     $class = "App\\" .$tabla;
     $method = "getAll_" . $tabla;

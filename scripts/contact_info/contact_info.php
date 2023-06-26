@@ -1,9 +1,9 @@
 <?php
 namespace App;
 class contact_info extends connect{ 
-    private $queryPost = 'INSERT INTO contact_info(id, whatsapp, instagram, linkedin, email, address, cel_number, id_staff) VALUES (:id, :contact, :ig, :li, :email, :direction, :phone, fk_staff)';
+    private $queryPost = 'INSERT INTO contact_info(id, whatsapp, instagram, linkedin, email, address, cel_number, id_staff) VALUES (:id, :contact, :ig, :li, :email, :direction, :phone, :fk_staff)';
     private $queryGetAll = 'SELECT id AS "id", whatsapp AS "contact", instagram AS "ig", linkedin AS "li", email AS "email",  address AS "direction", cel_number AS "phone", id_staff AS "fk_staff" FROM contact_info';
-    private $queryUpdate = 'UPDATE contact_info SET  whatsapp =: contact, instagram =: ig, linkedin =: li, email =: email,  address =: direction, cel_number =: phone, id_staff =: fk_staff WHERE id=:id';
+    private $queryUpdate = 'UPDATE contact_info SET  whatsapp =:contact, instagram =:ig, linkedin =:li, email =:email,  address =:direction, cel_number =:phone, id_staff =:fk_staff WHERE id=:id';
     private $queryDelete = 'DELETE FROM contact_info WHERE id=:id';
     private $message;
     use getInstance;
@@ -12,7 +12,7 @@ class contact_info extends connect{
         parent::__construct();
     }
 
-    public function postContactInfo(){
+    public function post_contact_info(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("id", $this->id);
@@ -43,7 +43,7 @@ class contact_info extends connect{
             print_r($this->message);
         }
     }
-    public function updateContactInfo(){
+    public function update_contact_info(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("id", $this->id);
@@ -68,7 +68,7 @@ class contact_info extends connect{
         }
 
     }
-    public function deleteContactInfo(){
+    public function delete_contact_info(){
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("id", $this->id);

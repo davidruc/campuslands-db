@@ -12,7 +12,7 @@ class personal_ref extends connect{
         parent::__construct();
     }
 
-    public function postPersonalRef (){
+    public function post_personal_ref(){
         try{
             $res = $this->conexion->prepare($this->queryPost);
             $res->bindValue("identificador", $this->id);
@@ -40,7 +40,7 @@ class personal_ref extends connect{
             print_r($this->message);
         }
     }
-    public function updatePersonalRef (){
+    public function update_personal_ref(){
         try{
             $res = $this->conexion->prepare($this->queryUpdate);
             $res->bindValue("identificador", $this->id);
@@ -60,7 +60,7 @@ class personal_ref extends connect{
         }
 
     }
-    public function deletePersonalRef (){ 
+    public function delete_personal_ref(){ 
         try{
             $res = $this->conexion->prepare($this->queryDelete);
             $res->bindValue("identificador", $this->id);

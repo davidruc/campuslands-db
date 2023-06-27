@@ -3,6 +3,7 @@ namespace App;
 class design_area extends connect{
     private $queryPost = 'INSERT INTO design_area(id, id_area, id_staff, id_position, id_journey) VALUES (:identificador, :fk_area, :fk_staff, :fk_posicion, :fk_journeys)';
     private $queryGetAll = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM design_area';
+    private $queryGet = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM design_area WHERE id=:identificador';
     private $queryUpdate = 'UPDATE design_area SET id_area = :fk_area, id_staff = :fk_staff, id_position = :fk_posicion, id_journey = :fk_journeys WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM design_area WHERE id = :identificador';
     private $message;
@@ -34,6 +35,18 @@ class design_area extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+    public function get_design_area($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("identificador", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

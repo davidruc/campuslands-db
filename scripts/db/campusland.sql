@@ -1359,3 +1359,50 @@ SELECT id AS "id", id_staff AS "fk_staff", years_exp AS "experience_Y", months_e
 SELECT id AS "id", name_route AS "route_name",  start_date AS "Start_date",  end_date AS "End_date",  description AS "details",  duration_month AS "duration"  FROM routes;
 
 INSERT INTO topics(id, name_topic, start_date, end_date, description,duration_days,id_module) VALUES (:identificador, :topic_name, :date_start, :date_end, :details,:days_duration, :fk_module);
+
+SELECT id AS "identificador", name_area AS "nombre_area" FROM areas WHERE id =:identificador;
+
+SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM academic_area WHERE id=:identificador;
+
+SELECT academic_area.id AS "id", 
+academic_area.id_area AS "fk_area", 
+areas.name_area AS "area_name",
+academic_area.id_staff AS "fk_staff",
+staff.first_name AS "staff_first_name",
+academic_area.id_position AS "fk_posicion", 
+position.name_position AS "name_position",
+academic_area.id_journey AS "fk_journeys",
+journey.name_journey AS "name_journey"
+FROM academic_area
+INNER JOIN areas ON academic_area.id_area = areas.id
+INNER JOIN staff ON academic_area.id_staff = staff.id
+INNER JOIN position ON position.name_position = position.id
+INNER JOIN journey ON journey.name_journey = journey.id;
+
+SELECT cities.id AS "id",
+name_city AS "city",
+cities.id_region AS "fk_region",
+regions.name_region AS "name_region_fk"
+FROM cities
+INNER JOIN regions ON cities.id_region = regions.id;
+
+SELECT admin_area.id AS "identificador",
+ admin_area.id_area AS "fk_area",
+ areas.name_area AS "fk_name_area",
+ admin_area.id_staff AS "fk_staff",
+ staff.first_name AS "fk_first_name",
+ staff.first_surname AS "fk_first_surname",
+ admin_area.id_position AS "fk_posicion",
+ position.name_position AS "fk_name_position",
+ admin_area.id_journey AS "fk_journeys",
+ journey.name_journey AS "fk_name_journey"
+ FROM admin_area
+ INNER JOIN areas ON admin_area.id_area = areas.id
+ INNER JOIN staff ON admin_area.id_staff = staff.id
+ INNER JOIN position ON admin_area.id_position = position.id
+ INNER JOIN journey ON admin_area.id_journey = journey.id;
+
+
+
+
+

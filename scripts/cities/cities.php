@@ -2,7 +2,19 @@
 namespace App;
 class cities extends connect{ 
     private $queryPost = 'INSERT INTO cities(id, name_city, id_region) VALUES (:id, :city, :fk_region)';
-    private $queryGetAll = 'SELECT id AS "id", name_city AS "city", id_region AS "fk_region" FROM cities';
+    private $queryGetAll = 'SELECT cities.id AS "id",
+    name_city AS "city",
+    cities.id_region AS "fk_region",
+    regions.name_region AS "name_region_fk"
+    FROM cities
+    INNER JOIN regions ON cities.id_region = regions.id';
+    private $queryGet = 'SELECT cities.id AS "id",
+    name_city AS "city",
+    cities.id_region AS "fk_region",
+    regions.name_region AS "name_region_fk"
+    FROM cities
+    INNER JOIN regions ON cities.id_region = regions.id 
+    WHERE cities.id=:id';
     private $queryUpdate = 'UPDATE cities SET name_city= :city, id_region=:fk_region WHERE id=:id';
     private $queryDelete = 'DELETE FROM cities WHERE id=:id';
     use getInstance;
@@ -32,6 +44,18 @@ class cities extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+    public function get_cities($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("id", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

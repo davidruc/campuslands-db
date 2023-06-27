@@ -3,6 +3,8 @@ namespace App;
 class chapters extends connect{ 
     private $queryPost = 'INSERT INTO chapters(id, name_chapter, start_date, end_date,description, duration_days, id_thematic_units) VALUES (:id, :chapter_name, :start_D, :end_D, :description, :duration_in_months, :fk_thematic_units)';
     private $queryGetAll = 'SELECT id AS "id", name_chapter AS "chapter_name",  start_date AS "Start_date", end_date AS "End_date",  description AS "details", duration_days AS "duration", id_thematic_units AS fk_thematic_units FROM chapters';
+    private $queryGet = 'SELECT id AS "id", name_chapter AS "chapter_name",  start_date AS "Start_date", end_date AS "End_date",  description AS "details", duration_days AS "duration", id_thematic_units AS fk_thematic_units FROM chapters WHERE id=:id';
+
     private $queryUpdate = 'UPDATE chapters SET id=:id, name_chapter=:chapter_name, start_date=:start_D, end_date=:end_D, description=:description, duration_days=:duration_in_months, id_thematic_units=:fk_thematic_units WHERE id=:id';
     private $queryDelete = 'DELETE FROM chapters WHERE id=:id';
     private $message;
@@ -37,6 +39,18 @@ class chapters extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+    public function get_chapters($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("id", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

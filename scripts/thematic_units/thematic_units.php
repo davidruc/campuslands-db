@@ -3,6 +3,8 @@ namespace App;
 class thematic_units extends connect{ 
     private $queryPost = 'INSERT INTO thematic_units(id, name_thematics_units, start_date, end_date,description, duration_days, id_route) VALUES (:id, :thematics_units, :start_D, :end_D, :description, :duration_in_months, :fk_route)';
     private $queryGetAll = 'SELECT id AS "id", name_thematics_units AS "thematics_units",  start_date AS "Start_date", end_date AS "End_date",  description AS "details", duration_days AS "duration", id_route AS fk_route FROM thematic_units';
+    private $queryGet = 'SELECT id AS "id", name_thematics_units AS "thematics_units",  start_date AS "Start_date", end_date AS "End_date",  description AS "details", duration_days AS "duration", id_route AS fk_route FROM thematic_units WHERE id=:id';
+
     private $queryUpdate = 'UPDATE thematic_units SET id=:id, name_thematics_units=:thematics_units, start_date=:start_D, end_date=:end_D, description=:description, duration_days=:duration_in_months, id_route=:fk_route WHERE id=:id';
     private $queryDelete = 'DELETE FROM thematic_units WHERE id=:id';
     private $message;
@@ -37,6 +39,19 @@ class thematic_units extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+
+    public function get_thematic_units($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("id", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

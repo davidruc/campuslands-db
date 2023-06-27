@@ -3,6 +3,8 @@ namespace App;
 class personal_ref extends connect{ 
     private $queryPost = 'INSERT INTO personal_ref(id, full_name, cel_number, relationship, occupation) VALUES (:identificador, :complete_name, :phone, :civil_state, :ocupation)';
     private $queryGetAll = 'SELECT id AS "identificador", full_name AS "complete_name", cel_number AS "phone",  relationship AS "civil_state",  occupation AS "ocupation" FROM personal_ref';
+    private $queryGet = 'SELECT id AS "identificador", full_name AS "complete_name", cel_number AS "phone",  relationship AS "civil_state",  occupation AS "ocupation" FROM personal_ref WHERE id=:identificador';
+
     private $queryUpdate = 'UPDATE personal_ref SET full_name = :complete_name, cel_number = :phone, relationship = :civil_state, occupation = :ocupation WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM personal_ref WHERE id = :identificador';
     private $message;
@@ -34,6 +36,19 @@ class personal_ref extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+
+    public function get_personal_ref($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("identificador", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

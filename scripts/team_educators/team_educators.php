@@ -4,6 +4,7 @@ namespace App;
 class team_educators extends connect{
     private $queryPost = 'INSERT INTO team_educators(id, name_rol) VALUES (:identificador, :rol_name)';
     private $queryGetAll = 'SELECT id AS "identificador", name_rol AS "rol_name" FROM team_educators';
+    private $queryGet= 'SELECT id AS "identificador", name_rol AS "rol_name" FROM team_educators WHERE id=:identificador';
     private $queryUpdate = 'UPDATE team_educators SET name_rol = :rol_name WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM team_educators WHERE id = :identificador';
     use getInstance;
@@ -30,6 +31,18 @@ class team_educators extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+    public function get_team_educators($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("identificador", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

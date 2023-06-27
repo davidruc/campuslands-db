@@ -3,6 +3,8 @@ namespace App;
 class journey extends connect{
     private $queryPost = 'INSERT INTO journey(id, name_journey, check_in, check_out) VALUES (:id, :journey_name,:check_in_hour ,:check_out_hour)';
     private $queryGetAll = 'SELECT id AS "id", name_journey AS "journey_name", check_in AS "check_in_hour", check_out AS "check_out_hour" FROM journey';
+    private $queryGet = 'SELECT id AS "id", name_journey AS "journey_name", check_in AS "check_in_hour", check_out AS "check_out_hour" FROM journey WHERE id=:id';
+
     private $queryUpdate = 'UPDATE journey SET name_journey = :journey_name, check_in=:check_in_hour, check_out=:check_out_hour WHERE id = :id';
     private $queryDelete = 'DELETE FROM journey WHERE id = :id';
     use getInstance;
@@ -31,6 +33,19 @@ class journey extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+
+    public function get_journey($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("id", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

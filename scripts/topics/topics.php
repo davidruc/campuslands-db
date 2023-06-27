@@ -3,6 +3,7 @@ namespace App;
 class topics extends connect{ 
     private $queryPost = 'INSERT INTO topics(id, name_topic, start_date, end_date, description,duration_days,id_module) VALUES (:identificador, :topic_name, :date_start, :date_end, :details,:days_duration, :fk_module)';
     private $queryGetAll = 'SELECT id AS "identificador", name_topic AS "topic_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_module AS "fk_module" FROM topics';
+    private $queryGet = 'SELECT id AS "identificador", name_topic AS "topic_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_module AS "fk_module" FROM topics WHERE id=:identificador';
     private $queryUpdate = 'UPDATE topics SET name_topic = :topic_name, start_date = :date_start, end_date = :date_end, description = :details, duration_days=:days_duration, id_module=:fk_module WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM topics WHERE id = :identificador';
     private $message;
@@ -39,6 +40,18 @@ class topics extends connect{
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
             print_r($conexion = null);
+        }   finally {
+            print_r($this->message);
+        }
+    }
+    public function get_topics($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("identificador", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {
             print_r($this->message);
         }

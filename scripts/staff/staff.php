@@ -3,6 +3,8 @@ namespace App;
 class staff extends connect{ 
     private $queryPost = 'INSERT INTO staff(id, doc, first_name,second_name,first_surname,second_surname,eps,id_area,id_city) VALUES (:id, :documento, :f_name, :s_name, :f_surname, :s_surname, :eps, :fk_area, :fk_city)';
     private $queryGetAll = 'SELECT id AS "id", doc AS "documento", first_name AS "f_name", second_name AS "s_name" , first_surname AS "f_surname" , second_surname AS "s_surname", eps AS "eps", id_area AS "fk_area", id_city AS "fk_city" FROM staff';
+    private $queryGet = 'SELECT id AS "id", doc AS "documento", first_name AS "f_name", second_name AS "s_name" , first_surname AS "f_surname" , second_surname AS "s_surname", eps AS "eps", id_area AS "fk_area", id_city AS "fk_city" FROM staff WHERE id=:id';
+
     private $queryUpdate = 'UPDATE staff SET doc=:documento, first_name =:f_name, second_name=:s_name, first_surname=:f_surname,second_surname=:s_surname, eps=:eps, id_area=:fk_area, id_city=:fk_city WHERE id=:id';
     private $queryDelete = 'DELETE FROM staff WHERE id= :id';
     private $message;
@@ -39,6 +41,19 @@ class staff extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+
+    public function get_staff($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("id", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

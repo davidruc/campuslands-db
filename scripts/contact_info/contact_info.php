@@ -3,6 +3,8 @@ namespace App;
 class contact_info extends connect{ 
     private $queryPost = 'INSERT INTO contact_info(id, whatsapp, instagram, linkedin, email, address, cel_number, id_staff) VALUES (:id, :contact, :ig, :li, :email, :direction, :phone, :fk_staff)';
     private $queryGetAll = 'SELECT id AS "id", whatsapp AS "contact", instagram AS "ig", linkedin AS "li", email AS "email",  address AS "direction", cel_number AS "phone", id_staff AS "fk_staff" FROM contact_info';
+    private $queryGet = 'SELECT id AS "id", whatsapp AS "contact", instagram AS "ig", linkedin AS "li", email AS "email",  address AS "direction", cel_number AS "phone", id_staff AS "fk_staff" FROM contact_info WHERE id=:id';
+
     private $queryUpdate = 'UPDATE contact_info SET  whatsapp =:contact, instagram =:ig, linkedin =:li, email =:email,  address =:direction, cel_number =:phone, id_staff =:fk_staff WHERE id=:id';
     private $queryDelete = 'DELETE FROM contact_info WHERE id=:id';
     private $message;
@@ -37,6 +39,18 @@ class contact_info extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+    public function get_contact_info($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("id", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

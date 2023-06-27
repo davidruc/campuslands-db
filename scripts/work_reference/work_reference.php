@@ -3,6 +3,7 @@ namespace App;
 class work_reference extends connect{ 
     private $queryPost = 'INSERT INTO work_reference(id, full_name, cel_number, position, company) VALUES (:id, :complete_name, :phone, :possition, :workPlace)';
     private $queryGetAll = 'SELECT id AS "id", full_name AS "complete_name", cel_number AS "phone", position AS "possition" ,company AS "workPlace" FROM work_reference';
+    private $queryGet = 'SELECT id AS "id", full_name AS "complete_name", cel_number AS "phone", position AS "possition" ,company AS "workPlace" FROM work_reference WHERE id=:id';
     private $queryUpdate = 'UPDATE work_reference SET full_name = :complete_name, cel_number= :phone, position = :possition, company = :workPlace WHERE id = :id';
     private $queryDelete = 'DELETE FROM work_reference WHERE id = :id';
     private $message;
@@ -35,6 +36,18 @@ class work_reference extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+    public function get_work_reference($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("id", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

@@ -1,0 +1,1 @@
+//! David del futuro, te faltan 10 tablas, principalmente las que son de llaves foraneas, los inner joins y el consumo de la api en el front. 

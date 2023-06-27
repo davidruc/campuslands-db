@@ -4,6 +4,8 @@ namespace App;
 class subjects extends connect{
     private $queryPost = 'INSERT INTO subjects(id, name_subject) VALUES (:id, :subject_name)';
     private $queryGetAll = 'SELECT id AS "id", name_subject AS "subject_name" FROM subjects';
+    private $queryGet = 'SELECT id AS "id", name_subject AS "subject_name" FROM subjects WHERE id=:id';
+
     private $queryUpdate = 'UPDATE subjects SET name_subject = :subject_name WHERE id = :id';
     private $queryDelete = 'DELETE FROM subjects WHERE id = :id';
     use getInstance;
@@ -30,6 +32,19 @@ class subjects extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+
+    public function get_subjects($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("id", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

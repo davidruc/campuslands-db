@@ -3,6 +3,8 @@ namespace App;
 class modules extends connect{ 
     private $queryPost = 'INSERT INTO modules(id, name_module, start_date, end_date, description,duration_days,id_theme) VALUES (:identificador, :module_name, :date_start, :date_end, :details,:days_duration, :fk_theme)';
     private $queryGetAll = 'SELECT id AS "identificador", name_module AS "module_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_theme AS "fk_theme" FROM modules';
+    private $queryGet = 'SELECT id AS "identificador", name_module AS "module_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_theme AS "fk_theme" FROM modules WHERE id=:identificador';
+
     private $queryUpdate = 'UPDATE modules SET name_module = :module_name, start_date = :date_start, end_date = :date_end, description = :details, duration_days=:days_duration, id_theme=:fk_theme WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM modules WHERE id = :identificador';
     use getInstance;
@@ -36,6 +38,18 @@ class modules extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+    public function get_modules($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("identificador", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

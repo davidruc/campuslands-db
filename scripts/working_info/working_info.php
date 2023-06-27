@@ -3,6 +3,8 @@ namespace App;
 class working_info extends connect{ 
     private $queryPost = 'INSERT INTO working_info(id, id_staff, years_exp,months_exp,id_work_reference,id_personal_ref,start_contract,end_contract) VALUES (:id, :fk_staff, :experience_Y, :experience_M, :fk_work_reference, :fk_personal_ref, :start_contract, :end_contract)';
     private $queryGetAll = 'SELECT id AS "id", id_staff AS "fk_staff", years_exp AS "experience_Y", months_exp AS "experience_M" , id_work_reference AS "fk_work_reference" , id_personal_ref AS "fk_personal_ref", start_contract AS "start_contract", end_contract AS "end_contract" FROM working_info';
+    private $queryGet = 'SELECT id AS "id", id_staff AS "fk_staff", years_exp AS "experience_Y", months_exp AS "experience_M" , id_work_reference AS "fk_work_reference" , id_personal_ref AS "fk_personal_ref", start_contract AS "start_contract", end_contract AS "end_contract" FROM working_info WHERE id=:id';
+
     private $queryUpdate = 'UPDATE working_info SET id_staff=:fk_staff, years_exp =:experience_Y, months_exp=:experience_M, id_work_reference=:fk_work_reference, id_personal_ref=:fk_personal_ref,  start_contract=:start_contract, end_contract=:end_contract WHERE id=:id';
     private $queryDelete = 'DELETE FROM working_info WHERE id= :id';
     use getInstance;
@@ -37,6 +39,18 @@ class working_info extends connect{
             $res = $this->conexion->prepare($this->queryGetAll);
             $res->execute();
             $this->message = ["Code" => 200, "Message" => $res->fetchAll(\PDO::FETCH_ASSOC)];
+        }   catch (\PDOException $e) {
+            $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
+        }   finally {
+            print_r($this->message);
+        }
+    }
+    public function get_working_info($id){
+        try{
+            $res = $this->conexion->prepare($this->queryGet);
+            $res->bindParam("id", $id);
+            $res->execute();
+            $this->message = ["Code" => 200, "Message" => $res->fetch(\PDO::FETCH_ASSOC)];
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {

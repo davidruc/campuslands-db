@@ -2,8 +2,27 @@
 namespace App;
 class emergency_contact extends connect{ 
     private $queryPost = 'INSERT INTO emergency_contact(id, cel_number, relationship,full_name, email, id_staff) VALUES  (:id, :phone, :relation, :complete_name, :email,:fk_staff)';
-    private $queryGetAll = 'SELECT id AS "id", cel_number AS "phone", relationship AS "relation", full_name AS "complete_name", email AS "email", id_staff AS "fk_staff" FROM emergency_contact';
-    private $queryGet = 'SELECT id AS "id", cel_number AS "phone", relationship AS "relation", full_name AS "complete_name", email AS "email", id_staff AS "fk_staff" FROM emergency_contact WHERE id=:id';
+    private $queryGetAll = 'SELECT emergency_contact.id AS "id",
+    emergency_contact.cel_number AS "phone",
+    emergency_contact.relationship AS "relation",
+    emergency_contact.full_name AS "complete_name",
+    emergency_contact.email AS "email",
+    emergency_contact.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname"
+    FROM emergency_contact
+    INNER JOIN staff ON emergency_contact.id_staff = staff.id';
+    private $queryGet = 'SELECT emergency_contact.id AS "id",
+    emergency_contact.cel_number AS "phone",
+    emergency_contact.relationship AS "relation",
+    emergency_contact.full_name AS "complete_name",
+    emergency_contact.email AS "email",
+    emergency_contact.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname"
+    FROM emergency_contact
+    INNER JOIN staff ON emergency_contact.id_staff = staff.id 
+    WHERE emergency_contact.id=:id';
     private $queryUpdate = 'UPDATE emergency_contact SET cel_number=:phone, relationship=:relation, full_name=:complete_name, email=:email, id_staff=:fk_staff WHERE id=:id';
     private $queryDelete = 'DELETE FROM emergency_contact WHERE id=:id ';
     private $message;

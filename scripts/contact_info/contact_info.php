@@ -2,8 +2,30 @@
 namespace App;
 class contact_info extends connect{ 
     private $queryPost = 'INSERT INTO contact_info(id, whatsapp, instagram, linkedin, email, address, cel_number, id_staff) VALUES (:id, :contact, :ig, :li, :email, :direction, :phone, :fk_staff)';
-    private $queryGetAll = 'SELECT id AS "id", whatsapp AS "contact", instagram AS "ig", linkedin AS "li", email AS "email",  address AS "direction", cel_number AS "phone", id_staff AS "fk_staff" FROM contact_info';
-    private $queryGet = 'SELECT id AS "id", whatsapp AS "contact", instagram AS "ig", linkedin AS "li", email AS "email",  address AS "direction", cel_number AS "phone", id_staff AS "fk_staff" FROM contact_info WHERE id=:id';
+    private $queryGetAll = 'SELECT contact_info.id AS "id",
+    contact_info.whatsapp AS "contact",
+    contact_info.instagram AS "ig",
+    contact_info.linkedin AS "li",
+    contact_info.email AS "email",
+    contact_info.address AS "direction",
+    contact_info.cel_number AS "phone",
+    contact_info.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname"
+    FROM contact_info
+    INNER JOIN staff ON contact_info.id_staff = staff.id';
+    private $queryGet = 'SELECT contact_info.id AS "id",
+    contact_info.whatsapp AS "contact",
+    contact_info.instagram AS "ig",
+    contact_info.linkedin AS "li",
+    contact_info.email AS "email",
+    contact_info.address AS "direction",
+    contact_info.cel_number AS "phone",
+    contact_info.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname"
+    FROM contact_info
+    INNER JOIN staff ON contact_info.id_staff = staff.id WHERE contact_info.id=:id';
 
     private $queryUpdate = 'UPDATE contact_info SET  whatsapp =:contact, instagram =:ig, linkedin =:li, email =:email,  address =:direction, cel_number =:phone, id_staff =:fk_staff WHERE id=:id';
     private $queryDelete = 'DELETE FROM contact_info WHERE id=:id';

@@ -2,8 +2,27 @@
 namespace App;
 class topics extends connect{ 
     private $queryPost = 'INSERT INTO topics(id, name_topic, start_date, end_date, description,duration_days,id_module) VALUES (:identificador, :topic_name, :date_start, :date_end, :details,:days_duration, :fk_module)';
-    private $queryGetAll = 'SELECT id AS "identificador", name_topic AS "topic_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_module AS "fk_module" FROM topics';
-    private $queryGet = 'SELECT id AS "identificador", name_topic AS "topic_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_module AS "fk_module" FROM topics WHERE id=:identificador';
+    private $queryGetAll = 'SELECT topics.id AS "identificador",
+    topics.name_topic AS "topic_name",
+    topics.start_date AS "date_start",
+    topics.end_date AS "date_end",
+    topics.description AS "details",
+    topics.duration_days AS "days_duration",
+    topics.id_module AS "fk_module",
+    modules.name_module AS "fk_module_name"
+    FROM topics
+    INNER JOIN modules ON topics.id_module = modules.id';
+    private $queryGet = 'SELECT topics.id AS "identificador",
+    topics.name_topic AS "topic_name",
+    topics.start_date AS "date_start",
+    topics.end_date AS "date_end",
+    topics.description AS "details",
+    topics.duration_days AS "days_duration",
+    topics.id_module AS "fk_module",
+    modules.name_module AS "fk_module_name"
+    FROM topics
+    INNER JOIN modules ON topics.id_module = modules.id 
+    WHERE topics.id=:identificador';
     private $queryUpdate = 'UPDATE topics SET name_topic = :topic_name, start_date = :date_start, end_date = :date_end, description = :details, duration_days=:days_duration, id_module=:fk_module WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM topics WHERE id = :identificador';
     private $message;

@@ -2,8 +2,27 @@
 namespace App;
 class thematic_units extends connect{ 
     private $queryPost = 'INSERT INTO thematic_units(id, name_thematics_units, start_date, end_date,description, duration_days, id_route) VALUES (:id, :thematics_units, :start_D, :end_D, :description, :duration_in_months, :fk_route)';
-    private $queryGetAll = 'SELECT id AS "id", name_thematics_units AS "thematics_units",  start_date AS "Start_date", end_date AS "End_date",  description AS "details", duration_days AS "duration", id_route AS fk_route FROM thematic_units';
-    private $queryGet = 'SELECT id AS "id", name_thematics_units AS "thematics_units",  start_date AS "Start_date", end_date AS "End_date",  description AS "details", duration_days AS "duration", id_route AS fk_route FROM thematic_units WHERE id=:id';
+    private $queryGetAll = 'SELECT thematic_units.id AS "id",
+    thematic_units.name_thematics_units AS "thematics_units",
+    thematic_units.start_date AS "Start_date",
+    thematic_units.end_date AS "End_date",
+    thematic_units.description AS "details",
+    thematic_units.duration_days AS "duration",
+    thematic_units.id_route AS fk_route,
+    routes.name_route AS "fk_route_name"
+    FROM thematic_units
+    INNER JOIN routes ON thematic_units.id_route = routes.id';
+    private $queryGet = 'SELECT thematic_units.id AS "id",
+    thematic_units.name_thematics_units AS "thematics_units",
+    thematic_units.start_date AS "Start_date",
+    thematic_units.end_date AS "End_date",
+    thematic_units.description AS "details",
+    thematic_units.duration_days AS "duration",
+    thematic_units.id_route AS fk_route,
+    routes.name_route AS "fk_route_name"
+    FROM thematic_units
+    INNER JOIN routes ON thematic_units.id_route = routes.id 
+    WHERE thematic_units.id=:id';
 
     private $queryUpdate = 'UPDATE thematic_units SET id=:id, name_thematics_units=:thematics_units, start_date=:start_D, end_date=:end_D, description=:description, duration_days=:duration_in_months, id_route=:fk_route WHERE id=:id';
     private $queryDelete = 'DELETE FROM thematic_units WHERE id=:id';

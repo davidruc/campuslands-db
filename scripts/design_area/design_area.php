@@ -2,8 +2,36 @@
 namespace App;
 class design_area extends connect{
     private $queryPost = 'INSERT INTO design_area(id, id_area, id_staff, id_position, id_journey) VALUES (:identificador, :fk_area, :fk_staff, :fk_posicion, :fk_journeys)';
-    private $queryGetAll = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM design_area';
-    private $queryGet = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM design_area WHERE id=:identificador';
+    private $queryGetAll = 'SELECT design_area.id AS "identificador",
+    design_area.id_area AS "fk_area",
+    areas.name_area AS "fk_name_area",
+    design_area.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname",
+    design_area.id_position AS "fk_posicion",
+    position.name_position AS "fk_name_position",
+    design_area.id_journey AS "fk_journeys",
+    journey.name_journey AS "fk_name_journey"
+    FROM design_area
+    INNER JOIN areas ON design_area.id_area = areas.id
+    INNER JOIN staff ON design_area.id_staff = staff.id
+    INNER JOIN position ON design_area.id_position = position.id
+    INNER JOIN journey ON design_area.id_journey = journey.id';
+    private $queryGet = 'SELECT design_area.id AS "identificador",
+    design_area.id_area AS "fk_area",
+    areas.name_area AS "fk_name_area",
+    design_area.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname",
+    design_area.id_position AS "fk_posicion",
+    position.name_position AS "fk_name_position",
+    design_area.id_journey AS "fk_journeys",
+    journey.name_journey AS "fk_name_journey"
+    FROM design_area
+    INNER JOIN areas ON design_area.id_area = areas.id
+    INNER JOIN staff ON design_area.id_staff = staff.id
+    INNER JOIN position ON design_area.id_position = position.id
+    INNER JOIN journey ON design_area.id_journey = journey.id WHERE design_area.id=:identificador';
     private $queryUpdate = 'UPDATE design_area SET id_area = :fk_area, id_staff = :fk_staff, id_position = :fk_posicion, id_journey = :fk_journeys WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM design_area WHERE id = :identificador';
     private $message;

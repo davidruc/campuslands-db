@@ -2,8 +2,27 @@
 namespace App;
 class modules extends connect{ 
     private $queryPost = 'INSERT INTO modules(id, name_module, start_date, end_date, description,duration_days,id_theme) VALUES (:identificador, :module_name, :date_start, :date_end, :details,:days_duration, :fk_theme)';
-    private $queryGetAll = 'SELECT id AS "identificador", name_module AS "module_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_theme AS "fk_theme" FROM modules';
-    private $queryGet = 'SELECT id AS "identificador", name_module AS "module_name", start_date AS "date_start",  end_date AS "date_end",  description AS "details",duration_days AS "days_duration", id_theme AS "fk_theme" FROM modules WHERE id=:identificador';
+    private $queryGetAll = 'SELECT modules.id AS "identificador",
+    modules.name_module AS "module_name",
+    modules.start_date AS "date_start",
+    modules.end_date AS "date_end",
+    modules.description AS "details",
+    modules.duration_days AS "days_duration",
+    modules.id_theme AS "fk_theme",
+    themes.name_theme AS "fk_name_theme"
+    FROM modules
+    INNER JOIN themes ON modules.id_theme = themes.id';
+    private $queryGet = 'SELECT modules.id AS "identificador",
+    modules.name_module AS "module_name",
+    modules.start_date AS "date_start",
+    modules.end_date AS "date_end",
+    modules.description AS "details",
+    modules.duration_days AS "days_duration",
+    modules.id_theme AS "fk_theme",
+    themes.name_theme AS "fk_name_theme"
+    FROM modules
+    INNER JOIN themes ON modules.id_theme = themes.id 
+    WHERE modules.id=:identificador';
 
     private $queryUpdate = 'UPDATE modules SET name_module = :module_name, start_date = :date_start, end_date = :date_end, description = :details, duration_days=:days_duration, id_theme=:fk_theme WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM modules WHERE id = :identificador';

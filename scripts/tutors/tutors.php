@@ -2,8 +2,31 @@
 namespace App;
 class tutors extends connect{
     private $queryPost = 'INSERT INTO tutors(id, id_staff, id_academic_area, id_position) VALUES (:id, :fk_staff,:fk_academic_area ,:fk_position)';
-    private $queryGetAll = 'SELECT id AS "id", id_staff AS "fk_staff", id_academic_area AS "fk_academic_area", id_position AS "fk_position" FROM tutors';
-    private $queryGet = 'SELECT id AS "id", id_staff AS "fk_staff", id_academic_area AS "fk_academic_area", id_position AS "fk_position" FROM tutors WHERE id=:id';
+    private $queryGetAll = 'SELECT tutors.id AS "id",
+    tutors.id_staff AS "fk_staff",
+    staff.first_name AS "f_name",
+    staff.second_name AS "s_name", 
+    tutors.id_academic_area AS "fk_academic_area",
+    areas.name_area AS "fk_name_area",
+    tutors.id_position AS "fk_position",
+    position.name_position AS "fk_position_name"
+    FROM tutors
+    INNER JOIN staff ON tutors.id_staff = staff.id
+    INNER JOIN areas ON  tutors.id_academic_area = areas.id
+    INNER JOIN position ON tutors.id_position = position.id';
+    private $queryGet = 'SELECT tutors.id AS "id",
+    tutors.id_staff AS "fk_staff",
+    staff.first_name AS "f_name",
+    staff.second_name AS "s_name", 
+    tutors.id_academic_area AS "fk_academic_area",
+    areas.name_area AS "fk_name_area",
+    tutors.id_position AS "fk_position",
+    position.name_position AS "fk_position_name"
+    FROM tutors
+    INNER JOIN staff ON tutors.id_staff = staff.id
+    INNER JOIN areas ON  tutors.id_academic_area = areas.id
+    INNER JOIN position ON tutors.id_position = position.id 
+    WHERE tutors.id=:id';
     private $queryUpdate = 'UPDATE tutors SET id_staff = :fk_staff, id_academic_area=:fk_academic_area, id_position=:fk_position WHERE id = :id';
     private $queryDelete = 'DELETE FROM tutors WHERE id = :id';
     use getInstance;

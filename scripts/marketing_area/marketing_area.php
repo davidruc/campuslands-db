@@ -2,8 +2,36 @@
 namespace App;
 class marketing_area extends connect{
     private $queryPost = 'INSERT INTO marketing_area(id, id_area, id_staff, id_position, id_journey) VALUES (:identificador, :fk_area, :fk_staff, :fk_posicion, :fk_journeys)';
-    private $queryGetAll = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM marketing_area';
-    private $queryGet = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM marketing_area WHERE id=:identificador';
+    private $queryGetAll = 'SELECT marketing_area.id AS "identificador",
+    marketing_area.id_area AS "fk_area",
+    areas.name_area AS "fk_name_area",
+    marketing_area.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname",
+    marketing_area.id_position AS "fk_posicion",
+    position.name_position AS "fk_name_position",
+    marketing_area.id_journey AS "fk_journeys",
+    journey.name_journey AS "fk_name_journey"
+    FROM marketing_area
+    INNER JOIN areas ON marketing_area.id_area = areas.id
+    INNER JOIN staff ON marketing_area.id_staff = staff.id
+    INNER JOIN position ON marketing_area.id_position = position.id
+    INNER JOIN journey ON marketing_area.id_journey = journey.id';
+    private $queryGet = 'SELECT marketing_area.id AS "identificador",
+    marketing_area.id_area AS "fk_area",
+    areas.name_area AS "fk_name_area",
+    marketing_area.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname",
+    marketing_area.id_position AS "fk_posicion",
+    position.name_position AS "fk_name_position",
+    marketing_area.id_journey AS "fk_journeys",
+    journey.name_journey AS "fk_name_journey"
+    FROM marketing_area
+    INNER JOIN areas ON marketing_area.id_area = areas.id
+    INNER JOIN staff ON marketing_area.id_staff = staff.id
+    INNER JOIN position ON marketing_area.id_position = position.id
+    INNER JOIN journey ON marketing_area.id_journey = journey.id WHERE marketing_area.id=:identificador';
 
     private $queryUpdate = 'UPDATE marketing_area SET id_area = :fk_area, id_staff = :fk_staff, id_position = :fk_posicion, id_journey = :fk_journeys WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM marketing_area WHERE id = :identificador';

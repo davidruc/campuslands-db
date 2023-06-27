@@ -2,8 +2,27 @@
 namespace App;
 class chapters extends connect{ 
     private $queryPost = 'INSERT INTO chapters(id, name_chapter, start_date, end_date,description, duration_days, id_thematic_units) VALUES (:id, :chapter_name, :start_D, :end_D, :description, :duration_in_months, :fk_thematic_units)';
-    private $queryGetAll = 'SELECT id AS "id", name_chapter AS "chapter_name",  start_date AS "Start_date", end_date AS "End_date",  description AS "details", duration_days AS "duration", id_thematic_units AS fk_thematic_units FROM chapters';
-    private $queryGet = 'SELECT id AS "id", name_chapter AS "chapter_name",  start_date AS "Start_date", end_date AS "End_date",  description AS "details", duration_days AS "duration", id_thematic_units AS fk_thematic_units FROM chapters WHERE id=:id';
+    private $queryGetAll = 'SELECT chapters.id AS "id",
+    chapters.name_chapter AS "chapter_name",
+    chapters.start_date AS "Start_date",
+    chapters.end_date AS "End_date",
+    chapters.description AS "details",
+    chapters.duration_days AS "duration",
+    chapters.id_thematic_units AS "fk_thematic_units",
+    thematic_units.name_thematics_units AS "fk_name_thematics_units"
+    FROM chapters 
+    INNER JOIN thematic_units ON chapters.id_thematic_units = thematic_units.id;';
+    private $queryGet = 'SELECT chapters.id AS "id",
+    chapters.name_chapter AS "chapter_name",
+    chapters.start_date AS "Start_date",
+    chapters.end_date AS "End_date",
+    chapters.description AS "details",
+    chapters.duration_days AS "duration",
+    chapters.id_thematic_units AS "fk_thematic_units",
+    thematic_units.name_thematics_units AS "fk_name_thematics_units"
+    FROM chapters 
+    INNER JOIN thematic_units ON chapters.id_thematic_units = thematic_units.id;
+    WHERE chapters.id=:id';
 
     private $queryUpdate = 'UPDATE chapters SET id=:id, name_chapter=:chapter_name, start_date=:start_D, end_date=:end_D, description=:description, duration_days=:duration_in_months, id_thematic_units=:fk_thematic_units WHERE id=:id';
     private $queryDelete = 'DELETE FROM chapters WHERE id=:id';

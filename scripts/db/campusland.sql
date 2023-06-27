@@ -1402,7 +1402,136 @@ SELECT admin_area.id AS "identificador",
  INNER JOIN position ON admin_area.id_position = position.id
  INNER JOIN journey ON admin_area.id_journey = journey.id;
 
+SELECT chapters.id AS "id",
+chapters.name_chapter AS "chapter_name",
+chapters.start_date AS "Start_date",
+chapters.end_date AS "End_date",
+chapters.description AS "details",
+chapters.duration_days AS "duration",
+chapters.id_thematic_units AS "fk_thematic_units",
+thematic_units.name_thematics_units AS "fk_name_thematics_units"
+FROM chapters 
+INNER JOIN thematic_units ON chapters.id_thematic_units = thematic_units.id;
 
+SELECT contact_info.id AS "id",
+contact_info.whatsapp AS "contact",
+contact_info.instagram AS "ig",
+contact_info.linkedin AS "li",
+contact_info.email AS "email",
+contact_info.address AS "direction",
+contact_info.cel_number AS "phone",
+contact_info.id_staff AS "fk_staff",
+staff.first_name AS "fk_first_name",
+staff.first_surname AS "fk_first_surname"
+FROM contact_info
+INNER JOIN staff ON contact_info.id_staff = staff.id;
+
+SELECT emergency_contact.id AS "id",
+emergency_contact.cel_number AS "phone",
+emergency_contact.relationship AS "relation",
+emergency_contact.full_name AS "complete_name",
+emergency_contact.email AS "email",
+emergency_contact.id_staff AS "fk_staff",
+staff.first_name AS "fk_first_name",
+staff.first_surname AS "fk_first_surname"
+FROM emergency_contact
+INNER JOIN staff ON emergency_contact.id_staff = staff.id;
+
+SELECT modules.id AS "identificador",
+modules.name_module AS "module_name",
+modules.start_date AS "date_start",
+modules.end_date AS "date_end",
+modules.description AS "details",
+modules.duration_days AS "days_duration",
+modules.id_theme AS "fk_theme",
+themes.name_theme AS "fk_name_theme"
+FROM modules
+INNER JOIN themes ON modules.id_theme = themes.id;
+
+SELECT regions.id AS "id",
+regions.name_region AS "region",
+regions.id_country AS "fk_country",
+countries.name_country AS "country_name_fk"
+FROM regions
+INNER JOIN countries ON regions.id_country = countries.id;
+
+SELECT staff.id AS "id",
+staff.doc AS "documento",
+staff.first_name AS "f_name",
+staff.second_name AS "s_name" ,
+staff.first_surname AS "f_surname" ,
+staff.second_surname AS "s_surname",
+staff.eps AS "eps",
+staff.id_area AS "fk_area",
+areas.name_area AS "fk_name_area",
+staff.id_city AS "fk_city",
+cities.name_city AS "fk_city_name"
+FROM staff
+INNER JOIN areas ON staff.id_area = areas.id
+INNER JOIN cities ON staff.id_city = cities.id;
+
+SELECT thematic_units.id AS "id",
+thematic_units.name_thematics_units AS "thematics_units",
+thematic_units.start_date AS "Start_date",
+thematic_units.end_date AS "End_date",
+thematic_units.description AS "details",
+thematic_units.duration_days AS "duration",
+thematic_units.id_route AS fk_route,
+routes.name_route AS "fk_route_name"
+FROM thematic_units
+INNER JOIN routes ON thematic_units.id_route = routes.id;
+
+SELECT themes.id AS "id",
+themes.name_theme AS "theme_names",
+themes.start_date AS "start_D",
+themes.end_date AS "end_D",
+themes.description AS "description",
+themes.duration_days AS "days_duration",
+themes.id_chapter AS "fk_chapter",
+chapters.name_chapter AS "fk_chapter_name"
+FROM themes
+INNER JOIN chapters ON themes.id_chapter = chapters.id;
+
+
+SELECT topics.id AS "identificador",
+topics.name_topic AS "topic_name",
+topics.start_date AS "date_start",
+topics.end_date AS "date_end",
+topics.description AS "details",
+topics.duration_days AS "days_duration",
+topics.id_module AS "fk_module",
+modules.name_module AS "fk_module_name"
+FROM topics
+INNER JOIN modules ON topics.id_module = modules.id;
+
+SELECT tutors.id AS "id",
+tutors.id_staff AS "fk_staff",
+staff.first_name AS "f_name",
+staff.second_name AS "s_name", 
+tutors.id_academic_area AS "fk_academic_area",
+areas.name_area AS "fk_name_area",
+tutors.id_position AS "fk_position",
+position.name_position AS "fk_position_name"
+FROM tutors
+INNER JOIN staff ON tutors.id_staff = staff.id
+INNER JOIN areas ON  tutors.id_academic_area = areas.id
+INNER JOIN position ON tutors.id_position = position.id;
+
+SELECT working_info.id AS "id",
+working_info.years_exp AS "experience_Y",
+working_info.months_exp AS "experience_M" ,
+working_info.start_contract AS "start_contract",
+working_info.end_contract AS "end_contract",
+working_info.id_staff AS "fk_staff",
+staff.first_name AS "fk_first_name",
+working_info.id_work_reference AS "fk_work_reference",
+work_reference.full_name AS "fk_full_name_wref",
+working_info.id_personal_ref AS "fk_personal_ref",
+personal_ref.full_name AS "fk_full_name_pref"
+FROM working_info
+INNER JOIN staff ON working_info.id_staff = staff.id
+INNER JOIN work_reference ON working_info.id_work_reference = work_reference.id
+INNER JOIN personal_ref ON working_info.id_personal_ref = personal_ref.id
 
 
 

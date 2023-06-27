@@ -2,8 +2,19 @@
 namespace App;
 class regions extends connect{ 
     private $queryPost = 'INSERT INTO regions(id, name_region, id_country) VALUES (:id, :region, :fk_country)';
-    private $queryGetAll = 'SELECT id AS "id", name_region AS "region", id_country AS "fk_country" FROM regions';
-    private $queryGet = 'SELECT id AS "id", name_region AS "region", id_country AS "fk_country" FROM regions WHERE id=:id';
+    private $queryGetAll = 'SELECT regions.id AS "id",
+    regions.name_region AS "region",
+    regions.id_country AS "fk_country",
+    countries.name_country AS "country_name_fk"
+    FROM regions
+    INNER JOIN countries ON regions.id_country = countries.id;';
+    private $queryGet = 'SELECT regions.id AS "id",
+    regions.name_region AS "region",
+    regions.id_country AS "fk_country",
+    countries.name_country AS "country_name_fk"
+    FROM regions
+    INNER JOIN countries ON regions.id_country = countries.id
+    WHERE regions.id=:id';
     private $queryUpdate = 'UPDATE regions SET name_region= :region, id_country=:fk_country WHERE id=:id';
     private $queryDelete = 'DELETE FROM regions WHERE id= :id';
     private $message;

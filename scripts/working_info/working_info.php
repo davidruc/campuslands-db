@@ -2,8 +2,37 @@
 namespace App;
 class working_info extends connect{ 
     private $queryPost = 'INSERT INTO working_info(id, id_staff, years_exp,months_exp,id_work_reference,id_personal_ref,start_contract,end_contract) VALUES (:id, :fk_staff, :experience_Y, :experience_M, :fk_work_reference, :fk_personal_ref, :start_contract, :end_contract)';
-    private $queryGetAll = 'SELECT id AS "id", id_staff AS "fk_staff", years_exp AS "experience_Y", months_exp AS "experience_M" , id_work_reference AS "fk_work_reference" , id_personal_ref AS "fk_personal_ref", start_contract AS "start_contract", end_contract AS "end_contract" FROM working_info';
-    private $queryGet = 'SELECT id AS "id", id_staff AS "fk_staff", years_exp AS "experience_Y", months_exp AS "experience_M" , id_work_reference AS "fk_work_reference" , id_personal_ref AS "fk_personal_ref", start_contract AS "start_contract", end_contract AS "end_contract" FROM working_info WHERE id=:id';
+    private $queryGetAll = 'SELECT working_info.id AS "id",
+    working_info.years_exp AS "experience_Y",
+    working_info.months_exp AS "experience_M" ,
+    working_info.start_contract AS "start_contract",
+    working_info.end_contract AS "end_contract",
+    working_info.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    working_info.id_work_reference AS "fk_work_reference",
+    work_reference.full_name AS "fk_full_name_wref",
+    working_info.id_personal_ref AS "fk_personal_ref",
+    personal_ref.full_name AS "fk_full_name_pref"
+    FROM working_info
+    INNER JOIN staff ON working_info.id_staff = staff.id
+    INNER JOIN work_reference ON working_info.id_work_reference = work_reference.id
+    INNER JOIN personal_ref ON working_info.id_personal_ref = personal_ref.id';
+    private $queryGet = 'SELECT working_info.id AS "id",
+    working_info.years_exp AS "experience_Y",
+    working_info.months_exp AS "experience_M" ,
+    working_info.start_contract AS "start_contract",
+    working_info.end_contract AS "end_contract",
+    working_info.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    working_info.id_work_reference AS "fk_work_reference",
+    work_reference.full_name AS "fk_full_name_wref",
+    working_info.id_personal_ref AS "fk_personal_ref",
+    personal_ref.full_name AS "fk_full_name_pref"
+    FROM working_info
+    INNER JOIN staff ON working_info.id_staff = staff.id
+    INNER JOIN work_reference ON working_info.id_work_reference = work_reference.id
+    INNER JOIN personal_ref ON working_info.id_personal_ref = personal_ref.id 
+    WHERE working_info.id=:id';
 
     private $queryUpdate = 'UPDATE working_info SET id_staff=:fk_staff, years_exp =:experience_Y, months_exp=:experience_M, id_work_reference=:fk_work_reference, id_personal_ref=:fk_personal_ref,  start_contract=:start_contract, end_contract=:end_contract WHERE id=:id';
     private $queryDelete = 'DELETE FROM working_info WHERE id= :id';

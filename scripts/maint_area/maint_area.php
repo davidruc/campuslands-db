@@ -2,8 +2,36 @@
 namespace App;
 class maint_area extends connect{
     private $queryPost = 'INSERT INTO maint_area(id, id_area, id_staff, id_position, id_journey) VALUES (:identificador, :fk_area, :fk_staff, :fk_posicion, :fk_journeys)';
-    private $queryGetAll = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM maint_area';
-    private $queryGet = 'SELECT id AS "identificador", id_area AS "fk_area", id_staff AS "fk_staff", id_position AS "fk_posicion", id_journey AS "fk_journeys" FROM maint_area WHERE id=:identificador';
+    private $queryGetAll = 'SELECT maint_area.id AS "identificador",
+    maint_area.id_area AS "fk_area",
+    areas.name_area AS "fk_name_area",
+    maint_area.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname",
+    maint_area.id_position AS "fk_posicion",
+    position.name_position AS "fk_name_position",
+    maint_area.id_journey AS "fk_journeys",
+    journey.name_journey AS "fk_name_journey"
+    FROM maint_area
+    INNER JOIN areas ON maint_area.id_area = areas.id
+    INNER JOIN staff ON maint_area.id_staff = staff.id
+    INNER JOIN position ON maint_area.id_position = position.id
+    INNER JOIN journey ON maint_area.id_journey = journey.id';
+    private $queryGet = 'SELECT maint_area.id AS "identificador",
+    maint_area.id_area AS "fk_area",
+    areas.name_area AS "fk_name_area",
+    maint_area.id_staff AS "fk_staff",
+    staff.first_name AS "fk_first_name",
+    staff.first_surname AS "fk_first_surname",
+    maint_area.id_position AS "fk_posicion",
+    position.name_position AS "fk_name_position",
+    maint_area.id_journey AS "fk_journeys",
+    journey.name_journey AS "fk_name_journey"
+    FROM maint_area
+    INNER JOIN areas ON maint_area.id_area = areas.id
+    INNER JOIN staff ON maint_area.id_staff = staff.id
+    INNER JOIN position ON maint_area.id_position = position.id
+    INNER JOIN journey ON maint_area.id_journey = journey.id WHERE maint_area.id=:identificador';
     private $queryUpdate = 'UPDATE maint_area SET id_area = :fk_area, id_staff = :fk_staff, id_position = :fk_posicion, id_journey = :fk_journeys WHERE id = :identificador';
     private $queryDelete = 'DELETE FROM maint_area WHERE id = :identificador';
     use getInstance;

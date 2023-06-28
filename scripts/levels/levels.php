@@ -36,8 +36,7 @@ class levels extends connect{
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {
-            print_r($this->message);
-        }
+            print_r(json_encode($this->message));        }
     }
     public function get_levels($id){
         try{
@@ -48,8 +47,7 @@ class levels extends connect{
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {
-            print_r($this->message);
-        }
+            print_r(json_encode($this->message));        }
     }
     public function update_levels(){
         try{

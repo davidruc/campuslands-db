@@ -3,13 +3,13 @@
 error_reporting(E_ALL);
 ini_set('display_error', "1");
 
-
+header("Content-Type: application/json");
 require_once "../vendor/autoload.php";
 $router = new \Bramus\Router\Router();
 
 
 
-$router->get("/{tabla}", function($tabla) {
+$router->get("/get/{tabla}", function($tabla) {
     $class = "App\\" .$tabla;
     $method = "getAll_" . $tabla;
     $instance = $class::getInstance(json_decode(file_get_contents("php://input"), true))->$method();

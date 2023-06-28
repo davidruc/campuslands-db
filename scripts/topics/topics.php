@@ -60,7 +60,7 @@ class topics extends connect{
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
             print_r($conexion = null);
         }   finally {
-            print_r($this->message);
+            print_r(json_encode($this->message));
         }
     }
     public function get_topics($id){
@@ -72,7 +72,7 @@ class topics extends connect{
         }   catch (\PDOException $e) {
             $this->message = ["Code" => $e->getCode(), "Message" => $res->errorInfo()[2]];
         }   finally {
-            print_r($this->message);
+            print_r(json_encode($this->message));
         }
     }
     public function update_topics(){
